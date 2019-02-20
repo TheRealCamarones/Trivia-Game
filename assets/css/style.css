@@ -1,8 +1,11 @@
 body {
-    background: url(../images/triviabackground.jpg);
+    background-image: url(../images/triviabackground.jpg);
     background: contain;
 }
+p {
+    font-size: 16px;
+}
 
-.container {
+.jumbotron {
     background: #fff;
 }
