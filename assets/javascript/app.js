@@ -18,12 +18,34 @@ var correctAnswerArray = ["The Green Bay Packers", "Wayne Gretzky", "Boston Celt
 
 // set a timer globally that we'll keep coming back to
 var timer = 25;
+// will need a global variable that lets me know which question we're on
+var questionCounter = 0;
 // will need a variable to keep track of the wins and losses
-var wins = 0;
-var losses = 0;
+var correct = 0;
+var incorrect = 0;
 // state variable to know if the game is running or not
 var gameRunning = false;
+// set variables to manipulate the DOM
+var questionDisplay;
+var answerDisplay;
+var timeRemaining;
 
-$("document").ready(function() {
+$("document").ready(function () {
+    function newGame() {
+        correct = 0;
+        incorrect = 0;
+        gameRunning = true;
+        questionCounter = 0;
+        timer = 25;
+        displayQuestions();
 
+    }
+
+    function displayQuestions() {
+        // display the timer
+        timeRemaining = $("#time-remaining-display").text(timer);
+        questionDisplay = $("#display-question").text
+    }
+
+    $("#new-game-button").click(newGame())
 });
