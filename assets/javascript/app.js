@@ -14,7 +14,20 @@ var answersArray = [
     ["Cy Young", "Randy Johnson", "Babe Ruth", "Jim Abbott"]
 ];
 
-var correctAnswerArray = ["The Green Bay Packers", "Wayne Gretzky", "Boston Celtics", "Tiger Woods", "Cy Young"]
+var correctAnswerArray = ["The Green Bay Packers", "Wayne Gretzky", "Boston Celtics", "Tiger Woods", "Cy Young"];
+
+// create an array to store all of my images
+// pretty DRY, but I can't think of a better way to do what I'm trying to do
+var imgArray = new Array();
+imgArray[0] = "<img class='d-block mx-auto' src='../images/greenbaypackers.jpg'>";
+imgArray[1] = "<img class='d-block mx-auto' src='../images/gretzky.jpg'>";
+imgArray[2] = "<img class='d-block mx-auto' src='../images/bostonceltics.jpg'>";
+imgArray[3] = "<img class='d-block mx-auto' src='../images/tigerwoods.jpg'>";
+imgArray[4] = "<img class='d-block mx-auto' src='../images/cyyoung.jpg'>";
+
+// and a variable for an image that I may or may not actually ever use
+var schwabImage = "<img class='d-block mx-auto' src='../images/theschwab.jpg'>";
+
 
 // set a timer globally that we'll keep coming back to
 var timer = 25;
