@@ -42,6 +42,7 @@ var gameRunning = false;
 var questionDisplay;
 var answerDisplay;
 var timeRemaining;
+var theClock;
 
 $("document").ready(function () {
     function newGame() {
@@ -51,8 +52,7 @@ $("document").ready(function () {
         questionCounter = 0;
         timer = 25;
         displayQuestions();
-        console.log(questionsArray[0]);
-
+        theTimer();
     }
 
     function displayQuestions() {
@@ -68,6 +68,28 @@ $("document").ready(function () {
                 answerDisplay = $(".answer-display").append(answersArray[i][j]);
             }
         }
+    }
+
+    function theTimer() {
+        // set the clock to an interval of 25 seconds
+        theClock = setInterval(decrement, 1000);
+        function decrement() {
+            if (timer===0) {
+                clearInterval(theClock);
+                generateLoss;
+            } else if (timer > 0) {
+                timer--;
+            }
+            }
+        }
+    
+
+    function generateLoss() {
+
+    }
+
+    function generateWin() {
+
     }
 
     $("#new-game-button").click(newGame())
