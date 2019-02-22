@@ -38,13 +38,23 @@ $("document").ready(function () {
         questionCounter = 0;
         timer = 25;
         displayQuestions();
+        console.log(questionsArray[0]);
 
     }
 
     function displayQuestions() {
         // display the timer
-        timeRemaining = $("#time-remaining-display").text(timer);
-        questionDisplay = $("#display-question").text
+        timeRemaining = $("#time-remaining-display").text("Time Remaining: " + timer);
+        // this might be a classic rookie mistake, but looks like the best way to get the questions 
+        // to display their respective assignments together is to have a nested loop
+        // so this one will loop through all of the questions
+        for (var i = 0; i < questionsArray.length; i++) {
+            questionDisplay = $("#display-question").html(questionsArray[i]);
+            // and then this loop will correspond it's answer options along with it
+            for (var j = 0; j < answersArray.length; j++) {
+                answerDisplay = $(".answer-display").append(answersArray[i][j]);
+            }
+        }
     }
 
     $("#new-game-button").click(newGame())
