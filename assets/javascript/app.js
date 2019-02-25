@@ -28,7 +28,6 @@ imgArray[4] = "<img class='d-block mx-auto' src='../images/cyyoung.jpg'>";
 // and a variable for an image that I may or may not actually ever use
 var schwabImage = "<img class='d-block mx-auto' src='../images/theschwab.jpg'>";
 
-
 // set a timer globally that we'll keep coming back to
 var timer = 25;
 // will need a global variable that lets me know which question we're on
@@ -36,8 +35,7 @@ var questionCounter = 0;
 // will need a variable to keep track of the wins and losses
 var correct = 0;
 var incorrect = 0;
-// state variable to know if the game is running or not
-var gameRunning = false;
+
 // set variables to manipulate the DOM
 var questionDisplay;
 var answerDisplay;
@@ -52,45 +50,47 @@ $("document").ready(function () {
         questionCounter = 0;
         timer = 25;
         displayQuestions();
-        theTimer();
+        
     }
 
     function displayQuestions() {
         // display the timer
         timeRemaining = $("#time-remaining-display").text("Time Remaining: " + timer);
-        // this might be a classic rookie mistake, but looks like the best way to get the questions 
-        // to display their respective assignments together is to have a nested loop
-        // so this one will loop through all of the questions
-        for (var i = 0; i < questionsArray.length; i++) {
-            questionDisplay = $("#display-question").html(questionsArray[i]);
-            // and then this loop will correspond it's answer options along with it
-            for (var j = 0; j < answersArray.length; j++) {
-                answerDisplay = $(".answer-display").append(answersArray[i][j]);
-            }
+        // I had nested loops in here to display the questions and answers, but that wasn't working right
+
+        questionDisplay = $("#display-question").append(questionsArray[questionCounter]);
+
+        for (var i = 0; i < answersArray.length; i++) {
+            answerDisplay = $("<div>");
+            answerDisplay.addClass("answer-choice");
+            answerDisplay.html(answersArray[questionCounter][i]);
+            $(".answer-display").append(answerDisplay);
         }
+        theTimer();
     }
 
     function theTimer() {
         // set the clock to an interval of 25 seconds
         theClock = setInterval(decrement, 1000);
         function decrement() {
-            if (timer===0) {
+            if (timer === 0) {
                 clearInterval(theClock);
-                generateLoss;
+                incorrectAnswer();
             } else if (timer > 0) {
                 timer--;
             }
-            }
+            $("#time-remaining-display").text("Time Remaining: " + timer);
         }
-    
+    };
 
-    function generateLoss() {
 
-    }
+    function incorrectAnswer() {
+
+    };
 
     function generateWin() {
 
-    }
+    };
 
-    $("#new-game-button").click(newGame())
+    $("#new-game-button").on("click", newGame())
 });
