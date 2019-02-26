@@ -1,4 +1,5 @@
 // array of arrays sucks let's make an object
+// DOM is brilliant he gave me a great idea for how to compare if the answwer is right using index instead of comparing strings
 var questions = [{
     question: "Who won the first Super Bowl?",
     answers: ["The Minnesota Vikings", "The Green Bay Packers", "The Saskatoon Snowmen", "The Chicago Cubs"],
@@ -68,8 +69,8 @@ $("document").ready(function () {
         for (var i = 0; i < questions[questionCounter].answers.length; i++) {
             answerDisplay = $("<div>");
             answerDisplay.addClass("answer-choice");
-            answerDisplay.attr(answerValue, indexOf(questions.answers[i]));
-            answerDisplay.html(questions[questionCounter].answers);
+            // answerDisplay.attr(answerValue, indexOf(questions.answers[i]));
+            answerDisplay.html(questions[questionCounter].answers[i]);
             $(".answer-display").append(answerDisplay);
         };
 
@@ -78,8 +79,6 @@ $("document").ready(function () {
             userGuess = $(this).val(answerValue);
             console.log(answerValue);
         });
-    
-
     };
 
     function theTimer() {
@@ -96,7 +95,6 @@ $("document").ready(function () {
             $("#time-remaining-display").text("Time Remaining: " + timer);
         }
     };
-
 
     function wrongAnswer() {
 
