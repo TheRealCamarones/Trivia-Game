@@ -5,8 +5,8 @@ var questions = [{
     question: "Who won the first Super Bowl?",
     answers: ["The Minnesota Vikings", "The Green Bay Packers", "The Saskatoon Snowmen", "The Chicago Cubs"],
     correct: 1,
-    image: "<img class='d-block mx-auto display-image' src='assets/images/greenbaypackers.jpg'>"
-    
+    image: "<img class='d-block mx-auto display-image' src='assets/images/greenbaypackers.jpg'>",
+    schwabImage : "<img class='d-block mx-auto' src='assets/images/theschwab.jpg'>"
 }, {
     question: "Who is the NHL's All time leading goal scorer?",
     answers: ["Jaromir Jagr", "Sidney Crosby", "Mario Lemieux", "Wayne Gretzky"],
@@ -16,19 +16,17 @@ var questions = [{
     question: "Which team has won the most NBA Championships?",
     answers: ["Los Angeles Lakers", "Chicago Bulls", "Boston Celtics", "Harlem Globetrotters"],
     correct: 2,
-    image: "<img class='d-block mx-auto' src='assets/images/bostonceltics.jpg'>",
+    image: "<img class='d-block mx-auto display-image' src='assets/images/bostonceltics.jpg'>",
 }, {
     question: "Who is the PGA Tour All Time Leading Money Earner?",
     answers: ["Vijay Singh", "Tiger Woods", "Ernie Els", "Jordan Spieth"],
     correct: 1,
-    image: "<img class='d-block mx-auto' src='assets/images/tigerwoods.jpg'>",
+    image: "<img class='d-block mx-auto display-image' src='assets/images/tigerwoods.jpg'>",
 }, {
     question: "Who is the MLB pither with the most career wins?",
     answers: ["Cy Young", "Randy Johnson", "Babe Ruth", "Jim Abbott"],
     correct: 0,
-    image: "<img class='d-block mx-auto' src='assets/images/cyyoung.jpg'>",
-}, {
-    schwabImage : "<img class='d-block mx-auto' src='assets/images/theschwab.jpg'>",
+    image: "<img class='d-block mx-auto display-image' src='assets/images/cyyoung.jpg'>",
 }];
 
 // set a timer globally that we'll keep coming back to
@@ -50,17 +48,17 @@ var answerDisplayText;
 
 $("document").ready(function () {
     function newGame() {
+        clear();
         correctAnswers = 0;
         incorrectAnswers = 0;
         gameRunning = true;
         questionCounter = 0;
         timer = 25;
-        clear();
         displayQuestions();
-        theTimer();
     }
 
     function displayQuestions() {
+        clear();
         // display the timer
         timeRemaining = $("#time-remaining-display").text("Time Remaining: " + timer);
         // I had nested loops in here to display the questions and answers, but that wasn't working right
@@ -77,10 +75,11 @@ $("document").ready(function () {
             $(".answer-display").append(answerDisplay);
         };
 
+        theTimer();
+
         // add something to run here to grab the value of the choice the user clicks on 
         $(".answer-choice").on("click", function () {
             userGuess = $(this).attr("data");
-            parseInt(userGuess);
             console.log(userGuess);
             clearInterval(theClock);
             checkAnswer();
@@ -97,6 +96,7 @@ $("document").ready(function () {
         // set the clock to an interval of 25 seconds
         clearInterval(theClock);
         theClock = setInterval(decrement, 1000);
+        timer = 25;
         function decrement() {
             if (timer === 0) {
                 clearInterval(theClock);
@@ -110,11 +110,13 @@ $("document").ready(function () {
 
     function checkAnswer() {
         clear();
+            parseInt(userGuess);
             console.log(answerDisplayText);
             console.log(typeof(userGuess));
             console.log(typeof(answerValue));
         // compare the value of the answer clicked on against the correct answer
-        if (userGuess = answerValue) {
+        // I remember being told not to use double equals, but MDN says it does type conversion while comparing and I can't get these to compare otherwise
+        if (userGuess == answerValue) {
             // if they match, increment the number of correct, add the corresponding image and display the answer
             correctAnswers++;
             $("#answer-image").html(questions[questionCounter].image);
@@ -122,12 +124,13 @@ $("document").ready(function () {
             console.log(answerDisplayText);
         } else {
             // otherwise display the image of the Schwab and let them know what the correct answer was
-            $("#answer-image").html(questions.schwabImage);
+            $("#answer-image").html(questions[0].schwabImage);
             $("#answer-message").html("Sorry, the correct answer was: " + answerDisplayText)
             
         }
 
         // if that question counter has more questions to display, increment the counter
+        // this keeps trying to continue to run the game for some reason
         if (questionCounter < questions.length) {
             questionCounter++;
             setTimeout(displayQuestions, 3 * 1000);
