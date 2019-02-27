@@ -69,15 +69,15 @@ $("document").ready(function () {
         for (var i = 0; i < questions[questionCounter].answers.length; i++) {
             answerDisplay = $("<div>");
             answerDisplay.addClass("answer-choice");
-            // answerDisplay.attr(answerValue, indexOf(questions.answers[i]));
+            answerDisplay.attr("data", i);
             answerDisplay.html(questions[questionCounter].answers[i]);
             $(".answer-display").append(answerDisplay);
         };
 
         // add something to run here to grab the value of the choice the user clicks on 
         $(".answer-choice").on("click", function () {
-            userGuess = $(this).val(answerValue);
-            console.log(answerValue);
+            userGuess = $(this).attr("data");
+            console.log(userGuess);
         });
     };
 
@@ -88,7 +88,7 @@ $("document").ready(function () {
         function decrement() {
             if (timer === 0) {
                 clearInterval(theClock);
-                incorrectAnswer();
+                ifIncorrect();
             } else if (timer > 0) {
                 timer--;
             }
@@ -96,11 +96,11 @@ $("document").ready(function () {
         }
     };
 
-    function wrongAnswer() {
+    function ifIncorrect() {
 
     };
 
-    function rightAnswer() {
+    function ifCorrect() {
 
     };
 
