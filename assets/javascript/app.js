@@ -47,6 +47,7 @@ var answerValue;
 var answerDisplayText;
 
 $("document").ready(function () {
+    // new game function to reset stats
     function newGame() {
         clear();
         correctAnswers = 0;
@@ -111,12 +112,13 @@ $("document").ready(function () {
     function checkAnswer() {
         // this function also will essentially do what I was going to do in a separate pause function so I'll just leave it here
         clear();
-            parseInt(userGuess);
-            console.log(answerDisplayText);
-            console.log(typeof(userGuess));
-            console.log(typeof(answerValue));
+            // parseInt(userGuess);
+            // console.log(answerDisplayText);
+            // console.log(typeof(userGuess));
+            // console.log(typeof(answerValue));
         // compare the value of the answer clicked on against the correct answer
         // I remember being told not to use double equals, but MDN says it does type conversion while comparing and I can't get these to compare otherwise
+        // plus it works
         if (userGuess == answerValue) {
             // if they match, increment the number of correct, add the corresponding image and display the answer
             correctAnswers++;
@@ -132,16 +134,12 @@ $("document").ready(function () {
 
         // if that question counter has more questions to display, increment the counter
         // this keeps trying to continue to run the game for some reason
-        if (questionCounter < questions.length) {
+        if (questionCounter < questions.length - 1) {
             questionCounter++;
             setTimeout(displayQuestions, 3 * 1000);
         } else {
             setTimeout(displayResults, 3 * 1000)
         }
-    };
-
-    function pause() {
-
     };
 
     function displayResults() {
