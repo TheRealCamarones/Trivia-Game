@@ -2,8 +2,14 @@ body {
     background-image: url(../images/triviabackground.jpg);
     background: contain;
 }
+
 p {
     font-size: 16px;
+}
+
+.display-image {
+    width: auto;
+    height: 200px;
 }
 
 .jumbotron {

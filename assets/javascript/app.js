@@ -5,29 +5,30 @@ var questions = [{
     question: "Who won the first Super Bowl?",
     answers: ["The Minnesota Vikings", "The Green Bay Packers", "The Saskatoon Snowmen", "The Chicago Cubs"],
     correct: 1,
-    image: "<img class='d-block mx-auto' src='../images/greenbaypackers.jpg'>"
+    image: "<img class='d-block mx-auto display-image' src='assets/images/greenbaypackers.jpg'>"
+    
 }, {
     question: "Who is the NHL's All time leading goal scorer?",
     answers: ["Jaromir Jagr", "Sidney Crosby", "Mario Lemieux", "Wayne Gretzky"],
     correct: 3,
-    image: "<img class='d-block mx-auto' src='../images/gretzky.jpg'>",
+    image: "<img class='d-block mx-auto display-image' src='assets/images/gretzky.jpg'>",
 }, {
     question: "Which team has won the most NBA Championships?",
     answers: ["Los Angeles Lakers", "Chicago Bulls", "Boston Celtics", "Harlem Globetrotters"],
     correct: 2,
-    image: "<img class='d-block mx-auto' src='../images/bostonceltics.jpg'>",
+    image: "<img class='d-block mx-auto' src='assets/images/bostonceltics.jpg'>",
 }, {
     question: "Who is the PGA Tour All Time Leading Money Earner?",
     answers: ["Vijay Singh", "Tiger Woods", "Ernie Els", "Jordan Spieth"],
     correct: 1,
-    image: "<img class='d-block mx-auto' src='../images/tigerwoods.jpg'>",
+    image: "<img class='d-block mx-auto' src='assets/images/tigerwoods.jpg'>",
 }, {
     question: "Who is the MLB pither with the most career wins?",
     answers: ["Cy Young", "Randy Johnson", "Babe Ruth", "Jim Abbott"],
     correct: 0,
-    image: "<img class='d-block mx-auto' src='../images/cyyoung.jpg'>",
+    image: "<img class='d-block mx-auto' src='assets/images/cyyoung.jpg'>",
 }, {
-    schwabImage : "<img class='d-block mx-auto' src='../images/theschwab.jpg'>",
+    schwabImage : "<img class='d-block mx-auto' src='assets/images/theschwab.jpg'>",
 }];
 
 // set a timer globally that we'll keep coming back to
@@ -35,8 +36,8 @@ var timer = 25;
 // will need a global variable that lets me know which question we're on
 var questionCounter = 0;
 // will need a variable to keep track of the wins and losses
-var correct = 0;
-var incorrect = 0;
+var correctAnswers = 0;
+var incorrectAnswers = 0;
 
 // set variables to manipulate the DOM
 var questionDisplay;
@@ -49,8 +50,8 @@ var answerDisplayText;
 
 $("document").ready(function () {
     function newGame() {
-        correct = 0;
-        incorrect = 0;
+        correctAnswers = 0;
+        incorrectAnswers = 0;
         gameRunning = true;
         questionCounter = 0;
         timer = 25;
@@ -79,16 +80,17 @@ $("document").ready(function () {
         // add something to run here to grab the value of the choice the user clicks on 
         $(".answer-choice").on("click", function () {
             userGuess = $(this).attr("data");
+            parseInt(userGuess);
             console.log(userGuess);
             clearInterval(theClock);
             checkAnswer();
             pause();
-
-            answerValue = questions[questionCounter].correct;
-            answerDisplayText = questions[questionCounter].answers[answerValue];
-            console.log(answerValue);
-            console.log(answerDisplayText);
         });
+        // variables that I set up top, these will help me compare and display answers
+        answerValue = questions[questionCounter].correct;
+        answerDisplayText = questions[questionCounter].answers[answerValue];
+        // console.log(answerValue);
+        // console.log(answerDisplayText);
     };
 
     function theTimer() {
@@ -107,10 +109,38 @@ $("document").ready(function () {
     };
 
     function checkAnswer() {
+        clear();
+            console.log(answerDisplayText);
+            console.log(typeof(userGuess));
+            console.log(typeof(answerValue));
+        // compare the value of the answer clicked on against the correct answer
+        if (userGuess = answerValue) {
+            // if they match, increment the number of correct, add the corresponding image and display the answer
+            correctAnswers++;
+            $("#answer-image").html(questions[questionCounter].image);
+            $("#answer-message").html(answerDisplayText);
+            console.log(answerDisplayText);
+        } else {
+            // otherwise display the image of the Schwab and let them know what the correct answer was
+            $("#answer-image").html(questions.schwabImage);
+            $("#answer-message").html("Sorry, the correct answer was: " + answerDisplayText)
+            
+        }
 
+        // if that question counter has more questions to display, increment the counter
+        if (questionCounter < questions.length) {
+            questionCounter++;
+            setTimeout(displayQuestions, 3 * 1000);
+        } else {
+            setTimeout(displayResults, 3 * 1000)
+        }
     };
 
     function pause() {
+
+    };
+
+    function displayResults() {
 
     };
 
@@ -118,6 +148,9 @@ $("document").ready(function () {
     function clear() {
         $("#display-question").empty();
         $(".answer-display").empty();
+        $("#answer-image").empty();
+        $("#answer-message").empty();
+        $(".answer-choice").empty();
     };
 
     // event handler for the newGame button
