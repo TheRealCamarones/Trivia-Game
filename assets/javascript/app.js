@@ -23,7 +23,7 @@ var questions = [{
     correct: 1,
     image: "<img class='d-block mx-auto display-image' src='assets/images/tigerwoods.jpg'>",
 }, {
-    question: "Who is the MLB pither with the most career wins?",
+    question: "Who is the MLB pitcher with the most career wins?",
     answers: ["Cy Young", "Randy Johnson", "Babe Ruth", "Jim Abbott"],
     correct: 0,
     image: "<img class='d-block mx-auto display-image' src='assets/images/cyyoung.jpg'>",
@@ -53,7 +53,7 @@ $("document").ready(function () {
         incorrectAnswers = 0;
         gameRunning = true;
         questionCounter = 0;
-        timer = 25;
+        // timer = 25;
         displayQuestions();
     }
 
@@ -83,7 +83,6 @@ $("document").ready(function () {
             console.log(userGuess);
             clearInterval(theClock);
             checkAnswer();
-            pause();
         });
         // variables that I set up top, these will help me compare and display answers
         answerValue = questions[questionCounter].correct;
@@ -94,9 +93,10 @@ $("document").ready(function () {
 
     function theTimer() {
         // set the clock to an interval of 25 seconds
+        timer = 25;
         clearInterval(theClock);
         theClock = setInterval(decrement, 1000);
-        timer = 25;
+        
         function decrement() {
             if (timer === 0) {
                 clearInterval(theClock);
@@ -109,6 +109,7 @@ $("document").ready(function () {
     };
 
     function checkAnswer() {
+        // this function also will essentially do what I was going to do in a separate pause function so I'll just leave it here
         clear();
             parseInt(userGuess);
             console.log(answerDisplayText);
@@ -120,7 +121,7 @@ $("document").ready(function () {
             // if they match, increment the number of correct, add the corresponding image and display the answer
             correctAnswers++;
             $("#answer-image").html(questions[questionCounter].image);
-            $("#answer-message").html(answerDisplayText);
+            $("#answer-message").html("Correct! " + answerDisplayText);
             console.log(answerDisplayText);
         } else {
             // otherwise display the image of the Schwab and let them know what the correct answer was
@@ -144,6 +145,9 @@ $("document").ready(function () {
     };
 
     function displayResults() {
+        clear();
+        $("#game-over-message").html("Did the Schwab Stump You?");
+        $("#number-correct").html("You got " + correctAnswers + " correct")
 
     };
 
@@ -154,6 +158,7 @@ $("document").ready(function () {
         $("#answer-image").empty();
         $("#answer-message").empty();
         $(".answer-choice").empty();
+        $("#time-remaining-display").empty();
     };
 
     // event handler for the newGame button
