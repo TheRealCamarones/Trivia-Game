@@ -1,5 +1,6 @@
 // array of arrays sucks let's make an object
-// DOM is brilliant he gave me a great idea for how to compare if the answwer is right using index instead of comparing strings
+// DOM is brilliant he gave me a great idea for how to compare if the answer is  
+// right using index instead of comparing strings, way easier
 var questions = [{
     question: "Who won the first Super Bowl?",
     answers: ["The Minnesota Vikings", "The Green Bay Packers", "The Saskatoon Snowmen", "The Chicago Cubs"],
@@ -44,6 +45,7 @@ var userGuess;
 var timeRemaining;
 var theClock;
 var answerValue;
+var answerDisplayText;
 
 $("document").ready(function () {
     function newGame() {
@@ -61,7 +63,7 @@ $("document").ready(function () {
         // display the timer
         timeRemaining = $("#time-remaining-display").text("Time Remaining: " + timer);
         // I had nested loops in here to display the questions and answers, but that wasn't working right
-        // pretty sure i'll just end up incrementing the questionCounter and then running this function again
+        // i'll end up incrementing the questionCounter and then running this function again
         questionDisplay = $("#display-question").append(questions[questionCounter].question);
 
         // have a loop that for every answer option only associated with current question counter creates a new div
@@ -78,6 +80,14 @@ $("document").ready(function () {
         $(".answer-choice").on("click", function () {
             userGuess = $(this).attr("data");
             console.log(userGuess);
+            clearInterval(theClock);
+            checkAnswer();
+            pause();
+
+            answerValue = questions[questionCounter].correct;
+            answerDisplayText = questions[questionCounter].answers[answerValue];
+            console.log(answerValue);
+            console.log(answerDisplayText);
         });
     };
 
@@ -88,7 +98,7 @@ $("document").ready(function () {
         function decrement() {
             if (timer === 0) {
                 clearInterval(theClock);
-                ifIncorrect();
+                checkAnswer();
             } else if (timer > 0) {
                 timer--;
             }
@@ -96,11 +106,11 @@ $("document").ready(function () {
         }
     };
 
-    function ifIncorrect() {
+    function checkAnswer() {
 
     };
 
-    function ifCorrect() {
+    function pause() {
 
     };
 
