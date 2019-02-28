@@ -39,6 +39,9 @@ p {
     margin: 0px;
 }
 
+#display-question {
+    color: #8b0000;
+}
 #directions-text {
     font-size: 18px;
 }
