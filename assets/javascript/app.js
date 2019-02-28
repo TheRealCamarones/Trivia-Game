@@ -46,6 +46,7 @@ var theClock;
 var answerValue;
 var answerDisplayText;
 var $schwabDisplay;
+var $schwabMessage;
 
 $("document").ready(function () {
     // new game function to reset stats
@@ -62,6 +63,7 @@ $("document").ready(function () {
     function displayQuestions() {
         clear();
         // display the timer
+        theTimer();
         timeRemaining = $("#time-remaining-display").text("Time Remaining: " + timer);
         // I had nested loops in here to display the questions and answers, but that wasn't working right
         // i'll end up incrementing the questionCounter and then running this function again
@@ -77,7 +79,7 @@ $("document").ready(function () {
             $(".answer-display").append(answerDisplay);
         };
 
-        theTimer();
+        
 
         // add something to run here to grab the value of the choice the user clicks on 
         $(".answer-choice").on("click", function () {
@@ -89,8 +91,6 @@ $("document").ready(function () {
         // variables that I set up top, these will help me compare and display answers
         answerValue = questions[questionCounter].correct;
         answerDisplayText = questions[questionCounter].answers[answerValue];
-        // console.log(answerValue);
-        // console.log(answerDisplayText);
     };
 
     function theTimer() {
@@ -113,12 +113,9 @@ $("document").ready(function () {
     function checkAnswer() {
         // this function also will essentially do what I was going to do in a separate pause function so I'll just leave it here
         clear();
-            // parseInt(userGuess);
-            // console.log(answerDisplayText);
-            // console.log(typeof(userGuess));
-            // console.log(typeof(answerValue));
+            
         // compare the value of the answer clicked on against the correct answer
-        // I remember being told not to use double equals, but MDN says it does type conversion while comparing and I can't get these to compare otherwise
+        // I remember being told not to use double equals, but MDN says it does type conversion while comparing
         // plus it works
         if (userGuess == answerValue) {
             // if they match, increment the number of correct, add the corresponding image and display the answer
@@ -131,7 +128,6 @@ $("document").ready(function () {
             incorrectAnswers++;
             $("#answer-image").html(questions[0].schwabImage);
             $("#answer-message").html("Sorry, the correct answer was: " + answerDisplayText);
-            
         }
 
         // if that question counter has more questions to display, increment the counter
@@ -146,13 +142,19 @@ $("document").ready(function () {
 
     function displayResults() {
         clear();
+        $("#schwab-display").show();
+        $("#new-game-button").show();
         $("#game-over-message").html("Did the Schwab Stump You?");
         $("#number-correct").html("You got " + correctAnswers + " correct");
         $("#number-incorrect").html("You got " + incorrectAnswers + " incorrect");
-        var $schwabDisplay = $("#schwab-display").html("<img>");
-        $schwabDisplay.attr("src", "assets/images/schwabfavicon.jpg");
-
-        
+        // conditional to display different messages depending on how well you did
+        if (incorrectAnswers === 0) {
+            $("#schwab-message").html("Congratulations! You Stumped the Schwab!")
+        } else if (incorrectAnswers === 1) {
+            $("#schwab-message").html("You were so close! You almost Stumped the Schwab!")
+        } else {
+            $("#schwab-message").html("Looks like the Schwab Stumped You!")
+        }
     };
 
     // this function will end up being called a lot as we need to wipe the screen clear of data
@@ -163,6 +165,13 @@ $("document").ready(function () {
         $("#answer-message").empty();
         $(".answer-choice").empty();
         $("#time-remaining-display").empty();
+        $("#number-correct").empty();
+        $("#number-incorrect").empty();
+        $("#schwab-message").empty();
+        $("#game-over-message").empty();
+        // hide for these two because we want to use them multiple times without refilling
+        $("#schwab-display").hide();
+        $("#new-game-button").hide();  
     };
 
     // event handler for the newGame button

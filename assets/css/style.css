@@ -15,3 +15,10 @@ p {
 .jumbotron {
     background: #fff;
 }
+
+#schwab-display {
+    width: 450px;
+    height: 400px;
+    padding: 0px;
+    margin: 0px;
+}
