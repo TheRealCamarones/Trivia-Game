@@ -46,3 +46,10 @@ p {
 #answer-option:hover {
     background: #7fffd4;
 }
+
+@media screen and (max-width: 640px) {
+    #schwab-display {
+        width: 100%;
+        height: 350px;
+    }
+}
