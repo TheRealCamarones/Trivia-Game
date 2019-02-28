@@ -55,4 +55,7 @@ p {
         width: 100%;
         height: 350px;
     }
+    .display-image {
+        width: 100%;
+    }
 }
