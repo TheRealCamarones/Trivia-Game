@@ -75,6 +75,7 @@ $("document").ready(function () {
             answerDisplay = $("<div>");
             answerDisplay.addClass("answer-choice");
             answerDisplay.attr("data", i);
+            answerDisplay.attr("id", "answer-option");
             answerDisplay.html(questions[questionCounter].answers[i]);
             $(".answer-display").append(answerDisplay);
         };
@@ -143,17 +144,17 @@ $("document").ready(function () {
     function displayResults() {
         clear();
         $("#schwab-display").show();
+        // $("#directions-text").show();
         $("#new-game-button").show();
-        $("#game-over-message").html("Did the Schwab Stump You?");
         $("#number-correct").html("You got " + correctAnswers + " correct");
         $("#number-incorrect").html("You got " + incorrectAnswers + " incorrect");
         // conditional to display different messages depending on how well you did
         if (incorrectAnswers === 0) {
-            $("#schwab-message").html("Congratulations! You Stumped the Schwab!")
+            $("#game-over-message").html("<h2>Congratulations! You Stumped the Schwab!</h2>")
         } else if (incorrectAnswers === 1) {
-            $("#schwab-message").html("You were so close! You almost Stumped the Schwab!")
+            $("#game-over-message").html("<h2>You were so close! You almost Stumped the Schwab!</h2>")
         } else {
-            $("#schwab-message").html("Looks like the Schwab Stumped You!")
+            $("#game-over-message").html("<h2>Looks like the Schwab Stumped You!</h2>")
         }
     };
 
@@ -171,7 +172,8 @@ $("document").ready(function () {
         $("#game-over-message").empty();
         // hide for these two because we want to use them multiple times without refilling
         $("#schwab-display").hide();
-        $("#new-game-button").hide();  
+        $("#new-game-button").hide();
+        $("#directions-text").hide();  
     };
 
     // event handler for the newGame button

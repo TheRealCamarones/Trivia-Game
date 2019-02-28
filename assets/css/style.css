@@ -1,6 +1,8 @@
 body {
     background-image: url(../images/triviabackground.jpg);
     background: contain;
+    font-size: 24px;
+    cursor: pointer;
 }
 
 p {
@@ -12,8 +14,22 @@ p {
     height: 200px;
 }
 
+
+.answer-display {
+    font-size: 24px;
+}
+
 .jumbotron {
     background: #fff;
+}
+
+#display-question,
+#answer-message,
+#game-over-message,
+#number-correct,
+#number-incorrect,
+#schwab-message {
+    font-size: 24px;
 }
 
 #schwab-display {
@@ -21,4 +37,12 @@ p {
     height: 400px;
     padding: 0px;
     margin: 0px;
+}
+
+#directions-text {
+    font-size: 18px;
+}
+
+#answer-option:hover {
+    background: #7fffd4;
 }
