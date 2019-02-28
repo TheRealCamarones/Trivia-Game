@@ -45,6 +45,7 @@ var timeRemaining;
 var theClock;
 var answerValue;
 var answerDisplayText;
+var $schwabDisplay;
 
 $("document").ready(function () {
     // new game function to reset stats
@@ -127,8 +128,9 @@ $("document").ready(function () {
             console.log(answerDisplayText);
         } else {
             // otherwise display the image of the Schwab and let them know what the correct answer was
+            incorrectAnswers++;
             $("#answer-image").html(questions[0].schwabImage);
-            $("#answer-message").html("Sorry, the correct answer was: " + answerDisplayText)
+            $("#answer-message").html("Sorry, the correct answer was: " + answerDisplayText);
             
         }
 
@@ -145,8 +147,12 @@ $("document").ready(function () {
     function displayResults() {
         clear();
         $("#game-over-message").html("Did the Schwab Stump You?");
-        $("#number-correct").html("You got " + correctAnswers + " correct")
+        $("#number-correct").html("You got " + correctAnswers + " correct");
+        $("#number-incorrect").html("You got " + incorrectAnswers + " incorrect");
+        var $schwabDisplay = $("#schwab-display").html("<img>");
+        $schwabDisplay.attr("src", "assets/images/schwabfavicon.jpg");
 
+        
     };
 
     // this function will end up being called a lot as we need to wipe the screen clear of data
