@@ -1,6 +1,4 @@
-// array of arrays sucks let's make an object
-// DOM is brilliant he gave me a great idea for how to compare if the answer is  
-// right using index instead of comparing strings, way easier
+// tried doing an array of arrays, but it's significantly easier using an object
 var questions = [{
     question: "Who won the first Super Bowl?",
     answers: ["The Minnesota Vikings", "The Green Bay Packers", "The Saskatoon Snowmen", "The Chicago Cubs"],
@@ -33,7 +31,7 @@ var questions = [{
 var timer = 25;
 // will need a global variable that lets me know which question we're on
 var questionCounter = 0;
-// will need a variable to keep track of the wins and losses
+// will need a variable to keep track of the correct or incorrect answers
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 
@@ -79,8 +77,6 @@ $("document").ready(function () {
             answerDisplay.html(questions[questionCounter].answers[i]);
             $(".answer-display").append(answerDisplay);
         };
-
-        
 
         // add something to run here to grab the value of the choice the user clicks on 
         $(".answer-choice").on("click", function () {
